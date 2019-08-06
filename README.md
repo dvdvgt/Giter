@@ -1,6 +1,6 @@
 # Description
 Command line application to quickly set up new repositories on Github and add
-to as origin to your local repo.
+it as origin to your local repo.
 
 # Requirements
 - Python 3.6+
