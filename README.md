@@ -4,7 +4,6 @@ it as origin to your local repo.
 
 # Requirements
 - Python 3.6+
-- colorama
 - pygithub
 
 # Installation
