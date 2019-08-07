@@ -8,7 +8,7 @@ it as origin to your local repo.
 
 # Installation
 1. Check whether you have the correct version of python installed with ``python3 --version``
-2. Clone the repository with ``git clone git@github.com:Xcal1bur/Shorty.git``
+2. Clone the repository with ``git clone git@github.com:Xcal1bur/Giter.git``
 
 # Usage
 ```
