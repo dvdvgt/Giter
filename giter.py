@@ -92,3 +92,5 @@ if __name__ == "__main__":
         git_init(username, repo_name, args.https)
     if args.doc:
         help(giter)
+    else:
+        parser.print_help()
