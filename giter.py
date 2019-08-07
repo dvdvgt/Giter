@@ -73,10 +73,10 @@ def create_repo():
 
 def git_init(username, repo_name, https=False):
     """
-    Initializes a git repo where this application has been called from!!! 
+    Initializes a git repo where this application has been called from.
     """
-    print(color.BOLD+color.CYAN+"[Setting up git repository]")
-    print(color.END)
+    print(color.BOLD+color.CYAN+"\n[Setting up git repository]"+color.END)
+    
     subprocess.run("git init", shell=True)
     subprocess.run("echo \"# test\" >> README.md", shell=True)
     subprocess.run("git add *", shell=True)
@@ -105,9 +105,7 @@ if __name__ == "__main__":
         git_init(username, repo_name, args.https)
     # Only initialize a local git repo and add a already created remote github repo.
     elif args.init and args.create == False:
-        username = input(color.BOLD+"Enter username ➜ "+color.END)
-        repo_name = input(color.BOLD+"Enter repository name ➜ "+color.END)
-        git_init(username, repo_name, args.https)
+        print(color.BOLD+color.RED+"Both --init and --create have to be used. Only --create can be used alone.")
     elif args.doc:
         help(giter)
     else:
