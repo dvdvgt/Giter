@@ -2,8 +2,20 @@
 """
     Command line application to quickly set up a new remote repository, initialize a local git repository and add the remote repo.
 """
-import os, subprocess, colorama, argparse, sys, giter
+import os, subprocess, argparse, sys, giter, getpass
 from github import Github
+
+class color:
+    PURPLE = '\033[95m'
+    CYAN = '\033[96m'
+    DARKCYAN = '\033[36m'
+    BLUE = '\033[94m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    END = '\033[0m'
 
 def get_credentials():
     """
@@ -12,13 +24,11 @@ def get_credentials():
     """
     username = str()
     passwd = str()
-    
+    print(color.BOLD+color.CYAN+"[Authentication]"+color.END)
     # Set Github username
-    print(colorama.Fore.YELLOW+"Enter Github username: ", end=" ")
-    username = input(colorama.Fore.RESET)
+    username = input(color.BOLD+"Enter Github username ➜ "+color.END)
     # Set Github password associated with the given username
-    print(colorama.Fore.YELLOW+"Enter Github password: ", end=" ")
-    passwd = input(colorama.Fore.RESET)
+    passwd = getpass.getpass(color.BOLD+"Enter password ➜ "+color.END)
 
     return username, passwd
 
@@ -29,40 +39,44 @@ def authenticat_user():
     username, passwd = get_credentials()
 
     try:
-        print(colorama.Fore.YELLOW+"\nAuthenticating user...")
+        print(color.BOLD+"\nAuthenticating user...")
         user = Github(username, passwd).get_user()
-        print(colorama.Fore.GREEN+f"User {user.login} has been authenticated!")
+        print(color.GREEN+f"User {user.login} has been authenticated!"+color.END)
         # Return Github user object
         return user
     except Exception as e:
-        print(colorama.Fore.RED+repr(e))
+        print(color.RED+repr(e))
+        sys.exit()
 
 def create_repo():
     """
     Creates a remote repository on Github.com and returns username and repo name.
     """
     user = authenticat_user()
+    print(color.BOLD+color.CYAN+"\n[Repository creation]"+color.END)
     # Set repo name
-    repo = input(colorama.Fore.YELLOW+"\nEnter repository name: "+colorama.Fore.RESET)
-    description = input(colorama.Fore.YELLOW+"\nEnter repository description: "+colorama.Fore.RESET)
-    private = input(colorama.Fore.YELLOW+"\nPrivate repository (y/n)? "+colorama.Fore.RESET)
+    repo = input(color.BOLD+"Enter repository name ➜ "+color.END)
+    # Set repo description
+    description = input(color.BOLD+"Enter repository description ➜ "+color.END)
+    # Whether you want the repo to be private
+    private = input(color.BOLD+"Private repository (y/n)? ➜ "+color.END)
     private = True if private == "y" else False
 
     try:
-        print(colorama.Fore.YELLOW+f"\nCreating repo {repo}", colorama.Fore.RESET)
+        print(color.BOLD+f"\nCreating repo {repo}", color.END)
         user.create_repo(repo, description=description, private=private)
-        print(colorama.Fore.GREEN+f"Repository {user.get_repo(repo).full_name} has been created")
+        print(color.BOLD+color.GREEN+f"Repository {user.get_repo(repo).full_name} has been created"+color.END)
         # Return username and repo name
         return user.login, repo
     except Exception as e:
-        print(colorama.Fore.RED, repr(e))
+        print(color.RED, repr(e))
 
 def git_init(username, repo_name, https=False):
     """
     Initializes a git repo where this application has been called from!!! 
     """
-    print(colorama.Fore.YELLOW+"Setting up git repository...")
-    print(colorama.Fore.RESET)
+    print(color.BOLD+color.CYAN+"[Setting up git repository]")
+    print(color.END)
     subprocess.run("git init", shell=True)
     subprocess.run("echo \"# test\" >> README.md", shell=True)
     subprocess.run("git add *", shell=True)
@@ -70,12 +84,11 @@ def git_init(username, repo_name, https=False):
     if https:
         subprocess.run(f"git remote add origin https://github.com/{username}/{repo_name}", shell=True)
     else:
-        print(f"git@github.com:{username}/{repo_name}.git")
         subprocess.run(f"git remote add origin git@github.com:{username}/{repo_name}.git", shell=True)
     subprocess.run("git push -u origin master", shell=True)
+    subprocess.run("git branch --set-upstream-to=origin/master master", shell=True)
 
 if __name__ == "__main__":
-    colorama.init()
     parser = argparse.ArgumentParser(description="Command line application to quickly set up a new remote repository, initialize a local git repository and add the remote repo.")
     parser.add_argument("--init", "-i", action="store_true")
     parser.add_argument("--https", action="store_true")
@@ -86,14 +99,14 @@ if __name__ == "__main__":
     # Create a new repo on Github.com
     if args.init == False and args.create:
         username, repo_name = create_repo()
-    # If a new repo on Github.com already has been created also initialize a local git repo
+    # Create a new repo on github.com, initialize a local git repo and add the remote repo
     elif args.init and args.create:
         username, repo_name = create_repo()
         git_init(username, repo_name, args.https)
-    # Only initialize a local git repo. User will be prompted to enter his Github.com username and the desired repo name (has to be created already). 
+    # Only initialize a local git repo and add a already created remote github repo.
     elif args.init and args.create == False:
-        username = input(colorama.Fore.YELLOW+"Enter username: "+colorama.Fore.RESET)
-        repo_name = input(colorama.Fore.YELLOW+"Enter repository name: "+colorama.Fore.RESET)
+        username = input(color.BOLD+"Enter username ➜ "+color.END)
+        repo_name = input(color.BOLD+"Enter repository name ➜ "+color.END)
         git_init(username, repo_name, args.https)
     elif args.doc:
         help(giter)
