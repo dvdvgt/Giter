@@ -75,6 +75,9 @@ def create_repo():
         print(color.RED, repr(e))
 
 def add_license(user, repo_name):
+    """
+    Adds a license to the repo. 
+    """
     GPL_3 = r"https://www.gnu.org/licenses/gpl-3.0.txt"
     GPL_3_text = requests.get(GPL_3).text
 
