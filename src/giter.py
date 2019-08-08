@@ -2,8 +2,9 @@
 """
     Command line application to quickly set up a new remote repository, initialize a local git repository and add the remote repo.
 """
-import os, subprocess, argparse, sys, giter, getpass
+import os, subprocess, argparse, sys, getpass
 from github import Github
+from . import giter
 
 class color:
     PURPLE = '\033[95m'
@@ -32,21 +33,28 @@ def get_credentials():
 
     return username, passwd
 
-def authenticat_user():
+def authenticat_user(pUsername="", pPasswd=""):
     """ 
     Authenticate the credentials provided and return a Github user object.
     """
     username, passwd = get_credentials()
 
-    try:
-        print(color.BOLD+"\nAuthenticating user...")
-        user = Github(username, passwd).get_user()
-        print(color.GREEN+f"User {user.login} has been authenticated!"+color.END)
-        # Return Github user object
-        return user
-    except Exception as e:
-        print(color.RED+repr(e))
-        sys.exit()
+    if pUsername == "" and pPasswd == "":
+        try:
+            print(color.BOLD+"\nAuthenticating user...")
+            user = Github(username, passwd).get_user()
+            print(color.GREEN+f"User {user.login} has been authenticated!"+color.END)
+            # Return Github user object
+            return user
+        except Exception as e:
+            print(color.RED+repr(e))
+            sys.exit()
+    else:
+        try:
+            user = Github(pUsername, pPasswd).get_user()
+            return user
+        except Exception as e:
+            print(repr(e), file=sys.stderr)
 
 def create_repo():
     """
