@@ -18,26 +18,10 @@ class color:
     UNDERLINE = '\033[4m'
     END = '\033[0m'
 
-def get_credentials():
-    """
-    Prompts inputs to enter username and password for your Github account.
-    Returns username and password.
-    """
-    username = str()
-    passwd = str()
-    print(color.BOLD+color.CYAN+"[Authentication]"+color.END)
-    # Set Github username
-    username = input(color.BOLD+"Enter Github username ➜ "+color.END)
-    # Set Github password associated with the given username
-    passwd = getpass.getpass(color.BOLD+"Enter password ➜ "+color.END)
-
-    return username, passwd
-
-def authenticat_user():
+def authenticat_user(username, passwd):
     """ 
     Authenticate the credentials provided and return a Github user object.
     """
-    username, passwd = get_credentials()
     try:
         print(color.BOLD+"\nAuthenticating user...")
         user = Github(username, passwd).get_user()
@@ -52,7 +36,15 @@ def create_repo():
     """
     Creates a remote repository on Github.com and returns username and repo name.
     """
-    user = authenticat_user()
+    print(color.BOLD+color.CYAN+"[Authentication]"+color.END)
+    # Set Github username
+    username = input(color.BOLD+"Enter Github username ➜ "+color.END)
+    # Set Github password associated with the given username
+    passwd = getpass.getpass(color.BOLD+"Enter password ➜ "+color.END)
+    
+    # Try to login with provided credentials and return github user object
+    user = authenticat_user(username, passwd)
+    
     print(color.BOLD+color.CYAN+"\n[Repository creation]"+color.END)
     # Set repo name
     repo = input(color.BOLD+"Enter repository name ➜ "+color.END)
@@ -121,7 +113,7 @@ def git_init(username, repo_name, https=False):
     subprocess.run("git rebase origin/master", shell=True)
     subprocess.run("git push -u origin master", shell=True)
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(description="Command line application to quickly set up a new remote repository, initialize a local git repository and add the remote repo.")
     parser.add_argument("--init", "-i", action="store_true")
     parser.add_argument("--https", action="store_true")
@@ -145,3 +137,6 @@ if __name__ == "__main__":
         help(giter)
     else:
         parser.print_help()
+
+if __name__ == "__main__":
+    main()
