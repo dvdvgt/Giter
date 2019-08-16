@@ -8,8 +8,11 @@ it as origin to your local repo.
 - beautifulsoup4
 
 # Installation
+## Github
 1. Check whether you have the correct version of python installed with ``python3 --version``
 2. Clone the repository with ``git clone git@github.com:Xcal1bur/Giter.git``
+## pip
+``pip install -i https://test.pypi.org/simple/ giter``
 
 # Usage
 ```
