@@ -5,6 +5,7 @@ it as origin to your local repo.
 # Requirements
 - Python 3.6+
 - pygithub
+- beautifulsoup4
 
 # Installation
 1. Check whether you have the correct version of python installed with ``python3 --version``
