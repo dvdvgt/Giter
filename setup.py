@@ -9,6 +9,7 @@ setup(
     version='1.0.0',
     packages=find_packages(),
     author='David Voigt',
+    author_email='David.Voigt1998@gmail.com',
     description='Command line application to quickly set up new repositories on Github and add it as origin to your local repo.',
     long_description=long_description,
     url='https://github.com/Xcal1bur/Giter',
