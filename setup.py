@@ -14,5 +14,5 @@ setup(
     long_description=long_description,
     url='https://github.com/Xcal1bur/Giter',
     license='GNU General Public License v3.0',
-    install_requires=['requests', 'beautifulsoup4']
+    install_requires=['requests', 'beautifulsoup4', 'pygithub']
 )
