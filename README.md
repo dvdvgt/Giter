@@ -1,3 +1,17 @@
+<h1 align="center">Giter
+
+![License](https://img.shields.io/github/license/Xcal1bur/Giter?style=flat-square)
+</h1>
+
+- [Description](#description)
+- [Requirements](#requirements)
+- [Installation](#installation)
+  - [Github](#github)
+  - [pip](#pip)
+- [Usage](#usage)
+- [Contribution](#contribution)
+- [License](#license)
+
 # Description
 Command line application to quickly set up new repositories on Github and add
 it as origin to your local repo.
@@ -12,7 +26,7 @@ it as origin to your local repo.
 1. Check whether you have the correct version of python installed with ``python3 --version``
 2. Clone the repository with ``git clone git@github.com:Xcal1bur/Giter.git``
 ## pip
-``pip install -i https://test.pypi.org/simple/ giter``
+- ``pip install -i https://test.pypi.org/simple/ giter``
 
 # Usage
 ```
