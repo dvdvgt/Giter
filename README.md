@@ -3,6 +3,8 @@
 ![License](https://img.shields.io/github/license/Xcal1bur/Giter?style=flat-square)
 </h1>
 
+# Table of Contents
+- [Table of Contents](#table-of-contents)
 - [Description](#description)
 - [Requirements](#requirements)
 - [Installation](#installation)
