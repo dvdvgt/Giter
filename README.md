@@ -1,6 +1,9 @@
 <h1 align="center">Giter
 
 ![License](https://img.shields.io/github/license/Xcal1bur/Giter?style=flat-square)
+
+![](giter.gif)
+
 </h1>
 
 # Table of Contents
