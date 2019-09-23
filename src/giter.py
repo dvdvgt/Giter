@@ -2,10 +2,20 @@
 """
     Command line application to quickly set up a new remote repository, initialize a local git repository and add the remote repo.
 """
-import os, subprocess, argparse, sys, getpass, giter, requests, time
-from colors import color
+# Standard libaries
+import os
+import subprocess
+import argparse
+import sys
+import getpass
+import requests
+import time
+# Third party
 from github import Github
 from bs4 import BeautifulSoup
+# Local
+import giter
+from colors import color
 
 def authenticat_user(username, passwd):
     """ 
@@ -90,17 +100,20 @@ def git_init(username, repo_name, https=False):
     """
     print(color.BOLD+color.CYAN+"\n[Setting up git repository]"+color.END)
     
-    subprocess.run("git init", shell=True)
-    subprocess.run(f"echo \"# {repo_name}\" >> README.md", shell=True)
-    subprocess.run("git add *", shell=True)
-    subprocess.run("git commit -m \"Initial commit\"", shell=True)
+    subprocess.run(["git", "init"])
+    # Create README.md file
+    with open("README.md", "w") as file:
+        file.write(f"# {repo_name}")
+        file.close()
+    subprocess.run(["git", "add", "*"])
+    subprocess.run(["git", "commit", "-m", "Initial commit"])
     if https:
-        subprocess.run(f"git remote add origin https://github.com/{username}/{repo_name}", shell=True)
+        subprocess.run(["git", "remote", "add", "origin", f"https://github.com/{username}/{repo_name}"])
     else:
-        subprocess.run(f"git remote add origin git@github.com:{username}/{repo_name}.git", shell=True)
-    subprocess.run("git pull origin master:master", shell=True)
-    subprocess.run("git rebase origin/master", shell=True)
-    subprocess.run("git push -u origin master", shell=True)
+        subprocess.run(["git", "remote", "add", "origin", f"git@github.com:{username}/{repo_name}.git"])
+    subprocess.run(["git", "pull", "origin", "master:master"])
+    subprocess.run(["git", "rebase", "origin/master"])
+    subprocess.run(["git", "push", "-u", "origin", "master"])
 
 def main():
     parser = argparse.ArgumentParser(description="Command line application to quickly set up a new remote repository, initialize a local git repository and add the remote repo.")
