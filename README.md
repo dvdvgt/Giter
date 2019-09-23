@@ -23,6 +23,7 @@ it as origin to your local repo.
 
 # Requirements
 - Python 3.6+
+- git
 - pygithub
 - beautifulsoup4
 
