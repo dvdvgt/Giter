@@ -117,9 +117,9 @@ def git_init(username, repo_name, https=False):
 
 def main():
     parser = argparse.ArgumentParser(description="Command line application to quickly set up a new remote repository, initialize a local git repository and add the remote repo.")
-    parser.add_argument("--init", "-i", action="store_true")
-    parser.add_argument("--https", action="store_true")
-    parser.add_argument("--create", "-c", action="store_true")
+    parser.add_argument("--init", "-i", action="store_true", help="Initialize a local git repository and add an EXISTING repository as remote.")
+    parser.add_argument("--https", action="store_true", help="Use https instead of ssh.")
+    parser.add_argument("--create", "-c", action="store_true", help="Create a repository on Github.com.")
     parser.add_argument("--doc", action="store_true")
     args = parser.parse_args()
 
