@@ -1,10 +1,13 @@
-<h1 align="center">Giter
+<h1 align="center">
+
+**Giter**
+</h1>
+<h2 align="center">
 
 ![License](https://img.shields.io/github/license/Xcal1bur/Giter?style=flat-square)
 
 ![](giter.gif)
-
-</h1>
+</h2>
 
 # Table of Contents
 - [Table of Contents](#table-of-contents)
