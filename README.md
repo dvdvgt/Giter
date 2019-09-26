@@ -30,7 +30,7 @@ it as origin to your local repo.
 
 # Installation
 1. Check whether you have the correct version of python installed with ``python3 --version``
-2. Clone the repository with ``git clone git@github.com:Xcal1bur/Giter.git``
+2. Clone the repository with ``git clone https://github.com/Xcal1bur/Giter.git``
 3. Navigate to the root directory with ``cd Giter``
 4. Install it by running ``sudo pip install .``
 5. After restarting your terminal you may now executer giter just by typing ``giter -h``
