@@ -15,5 +15,6 @@ setup(
     long_description_content_type="text/markdown",
     url='https://github.com/Xcal1bur/Giter',
     license='GNU General Public License v3.0',
-    install_requires=['requests', 'beautifulsoup4', 'pygithub']
+    install_requires=['requests', 'beautifulsoup4', 'pygithub'],
+    entry_points={'console_scripts': ['giter = giter.giter:main']},
 )

@@ -14,8 +14,8 @@ import time
 from github import Github
 from bs4 import BeautifulSoup
 # Local
-import giter
-from colors import color
+from giter import giter
+from giter.colors import color
 
 def authenticat_user(username, passwd):
     """ 
