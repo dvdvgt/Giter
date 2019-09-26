@@ -51,7 +51,7 @@ optional arguments:
 ```
 
 # Contribution
-Please feel free to report bugs, request features or add examples by submitting a pull request.
+Please feel free to report bugs or request features by opening an issue.
 
 # License
 Copyright (C) 2019  David Voigt
