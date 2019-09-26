@@ -54,7 +54,7 @@ optional arguments:
 Please feel free to report bugs, request features or add examples by submitting a pull request.
 
 # License
-Copyright (C) 2019  Xcal1bur
+Copyright (C) 2019  David Voigt
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
