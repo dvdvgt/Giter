@@ -14,8 +14,6 @@
 - [Description](#description)
 - [Requirements](#requirements)
 - [Installation](#installation)
-  - [Github](#github)
-  - [pip](#pip)
 - [Usage](#usage)
 - [Contribution](#contribution)
 - [License](#license)
@@ -31,11 +29,11 @@ it as origin to your local repo.
 - beautifulsoup4
 
 # Installation
-## Github
 1. Check whether you have the correct version of python installed with ``python3 --version``
 2. Clone the repository with ``git clone git@github.com:Xcal1bur/Giter.git``
-## pip
-- ``pip install -i https://test.pypi.org/simple/ giter``
+3. Navigate to the root directory with ``cd Giter``
+4. Install it by running ``sudo pip install .``
+5. After restarting your terminal you may now executer giter just by typing ``giter -h``
 
 # Usage
 ```
