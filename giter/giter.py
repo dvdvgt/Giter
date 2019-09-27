@@ -17,7 +17,7 @@ from giter import giter
 from giter.colors import color
 
 def authenticat_user(username, passwd):
-    """ 
+    """
     Authenticate the credentials provided and return a Github user object.
     """
     try:
@@ -66,7 +66,7 @@ def create_repo():
 
 def add_license(user, repo_name):
     """
-    Adds a license to the repo. 
+    Adds a license to the repo.
     """
     selection = input(color.BOLD+"\nSelect a license:\n[1] GNU GPL v3\n[2] MIT\n[3] Apache\n[4] None\n➜ ")
     repo = user.get_repo(repo_name)
