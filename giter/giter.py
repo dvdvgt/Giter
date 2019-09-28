@@ -16,7 +16,7 @@ from github import Github
 from giter import giter
 from giter.colors import color
 
-def authenticat_user(username, passwd):
+def authenticate_user(username, passwd):
     """
     Authenticate the credentials provided and return a Github user object.
     """
@@ -41,7 +41,7 @@ def create_repo():
     passwd = getpass.getpass(color.BOLD+"Enter password ➜ "+color.END)
     
     # Try to login with provided credentials and return github user object
-    user = authenticat_user(username, passwd)
+    user = authenticate_user(username, passwd)
     
     print(color.BOLD+color.CYAN+"\n[Repository creation]"+color.END)
     # Set repo name
@@ -58,26 +58,28 @@ def create_repo():
         print(color.BOLD+color.GREEN+f"Repository {user.get_repo(repo).full_name} has been created"+color.END)
         time.sleep(1)
         # Add a license
-        add_license(user, repo)
+        add_license(Github(username, passwd), repo)
         # Return username and repo name
         return user.login, repo
     except Exception as e:
         print(color.RED, repr(e))
 
-def add_license(user, repo_name):
+def add_license(github_obj, repo_name):
     """
     Adds a license to the repo.
     """
-    selection = input(color.BOLD+"\nSelect a license:\n[1] GNU GPL v3\n[2] MIT\n[3] Apache\n[4] None\n➜ ")
-    repo = user.get_repo(repo_name)
+    selection = input(color.BOLD+"\nSelect a license:\n[1] GNU GPL v3\n[2] MIT\n[3] Apache\n[4] Unlicense\n[5] None\n➜ ")
+    repo = github_obj.get_user().get_repo(repo_name)
 
     if selection == "1":
-        repo.create_file("LICENSE.txt", "Initial commit", user.get_license('gpl-3.0').body)
+        repo.create_file("LICENSE.txt", "Initial commit", github_obj.get_license('gpl-3.0').body)
     elif selection == "2":
-        repo.create_file("LICENSE.txt", "Initial commit", user.get_license('mit').body)
+        repo.create_file("LICENSE.txt", "Initial commit", github_obj.get_license('mit').body)
     elif selection == "3":
-        repo.create_file("LICENSE.txt", "Initial commit", user.get_license('apache-2.0').body)
+        repo.create_file("LICENSE.txt", "Initial commit", github_obj.get_license('apache-2.0').body)
     elif selection == "4":
+        repo.create_file("LICENSE.txt", "Initial commit", github_obj.get_license('unlicense').body)
+    elif selection == "5":
         pass
     else:
         print(color.BOLD+color.RED+"Wrong Input! No license has been created."+color.END)
