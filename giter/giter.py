@@ -67,6 +67,14 @@ def create_repo():
         print(color.RED, repr(e))
 
 def add_gitignore():
+    """
+    Adds a .gitignore to the repo.
+    """
+    # check if .gitignore already exists in root directory
+    if (os.path.isfile('.gitignore')):
+        # Do not add a new gitignore, use the current one
+        return GithubObject.NotSet
+
     selection = input(color.BOLD+"\nSelect a .gitignore:\n[1] C\n[2] C++\n[3] Java\n[4] Node\n[5] Python\n[6] Other\n[7] None\n➜ ")
     if selection == '1':
         return 'C'
