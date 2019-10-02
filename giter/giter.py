@@ -12,6 +12,7 @@ import requests
 import time
 # Third party
 from github import Github
+from github import GithubObject
 # Local
 from giter import giter
 from giter.colors import color
@@ -53,8 +54,9 @@ def create_repo():
     private = True if private == "y" else False
 
     try:
+        gitignore_template = add_gitignore()
         print(color.BOLD+f"\nCreating repo {repo}", color.END)
-        user.create_repo(repo, description=description, private=private)
+        user.create_repo(repo, description=description, private=private, gitignore_template=gitignore_template)
         print(color.BOLD+color.GREEN+f"Repository {user.get_repo(repo).full_name} has been created"+color.END)
         time.sleep(1)
         # Add a license
@@ -63,6 +65,41 @@ def create_repo():
         return user.login, repo
     except Exception as e:
         print(color.RED, repr(e))
+
+def add_gitignore():
+    selection = input(color.BOLD+"\nSelect a .gitignore:\n[1] C\n[2] C++\n[3] Java\n[4] Node\n[5] Python\n[6] Other\n[7] None\n➜ ")
+    if selection == '1':
+        return 'C'
+    elif selection == '2':
+        return 'C++'
+    elif selection == '3':
+        return 'Java'
+    elif selection == '4':
+        return 'Node'
+    elif selection == '5':
+        return 'Python'
+    elif selection == '6':
+        try:
+            print("Downloading list of .gitignore files...")
+            response = requests.get("https://api.github.com/gitignore/templates")
+            if response.status_code == 200:
+                responseJSON = response.json()
+                for idx, opt in enumerate(responseJSON):
+                    print(f"[{idx}] {opt}")
+                selection = int(input(color.BOLD+"Select your .gitignore file ➜ "))
+                if selection >= 0 and selection < len(responseJSON):
+                    return responseJSON[selection]
+                else:
+                    return GithubObject.NotSet
+            else:
+                print("Error in gitignore fetch: status_code = ", response.status_code)
+                return GithubObject.NotSet
+
+        except Exception as e:
+            print("Error in gitignore fetch: ", str(e))
+            return GithubObject.NotSet
+    else:
+        return GithubObject.NotSet
 
 def add_license(github_obj, repo_name):
     """
