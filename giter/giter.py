@@ -54,8 +54,8 @@ def create_repo():
     private = True if private == "y" else False
 
     try:
-        print(color.BOLD+f"\nCreating repo {repo}", color.END)
         gitignore_template = add_gitignore()
+        print(color.BOLD+f"\nCreating repo {repo}", color.END)
         user.create_repo(repo, description=description, private=private, gitignore_template=gitignore_template)
         print(color.BOLD+color.GREEN+f"Repository {user.get_repo(repo).full_name} has been created"+color.END)
         time.sleep(1)
@@ -91,7 +91,6 @@ def add_gitignore():
                     return responseJSON[selection]
                 else:
                     return GithubObject.NotSet
-
             else:
                 print("Error in gitignore fetch: status_code = ", response.status_code)
                 return GithubObject.NotSet
@@ -101,8 +100,6 @@ def add_gitignore():
             return GithubObject.NotSet
     else:
         return GithubObject.NotSet
-
-
 
 def add_license(github_obj, repo_name):
     """
