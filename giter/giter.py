@@ -10,6 +10,7 @@ import sys
 import getpass
 import requests
 import time
+import re
 # Third party
 from github import Github
 from github import GithubObject
@@ -135,11 +136,18 @@ def git_init(username, repo_name, https=False):
     """
     print(color.BOLD+color.CYAN+"\n[Setting up git repository]"+color.END)
     
-    subprocess.run(["git", "init"])
+    # Check for existing README
+    files = os.listdir(".")
+    regex = re.compile("readme*")
+    matches = [file for file in files if re.match(regex, file.lower())]
+    if len(matches) > 0:
+        print(color.BOLD+color.YELLOW+"README file already exists. Using existing one."+color.END)
     # Create README.md file
-    with open("README.md", "w") as file:
-        file.write(f"# {repo_name}")
-        file.close()
+    else:
+        with open("README.md", "w") as file:
+            file.write(f"# {repo_name}")
+            file.close()
+    subprocess.run(["git", "init"])
     subprocess.run(["git", "add", "*"])
     subprocess.run(["git", "commit", "-m", "Initial commit"])
     if https:
