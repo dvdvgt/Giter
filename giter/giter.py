@@ -140,13 +140,17 @@ def git_init(username, repo_name, https=False):
     files = os.listdir(".")
     regex = re.compile("readme*")
     matches = [file for file in files if re.match(regex, file.lower())]
-    if len(matches) > 0:
+
+    print(color.BOLD+"Looking for existing README..."+color.END)
+    # Using existing README
+    if len(matches) > 0 and input(color.BOLD+"Replace existing README (y/n)? "+color.END).lower() == "y":
         print(color.BOLD+color.YELLOW+"README file already exists. Using existing one."+color.END)
     # Create README.md file
     else:
         with open("README.md", "w") as file:
             file.write(f"# {repo_name}")
             file.close()
+            
     subprocess.run(["git", "init"])
     subprocess.run(["git", "add", "*"])
     subprocess.run(["git", "commit", "-m", "Initial commit"])
