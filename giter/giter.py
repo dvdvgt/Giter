@@ -10,6 +10,7 @@ import sys
 import getpass
 import requests
 import time
+import re
 # Third party
 from github import Github
 from github import GithubObject
@@ -129,17 +130,45 @@ def add_license(github_obj, repo_name):
     else:
         print(color.BOLD+color.RED+"Wrong Input! No license has been created."+color.END)
 
+def add_readme(repo_name):
+    """
+    Replaces existing or creates a new README file
+    """
+    # Check for existing README
+    files = os.listdir(".")
+    regex = re.compile("readme*")
+    matches = [file for file in files if re.match(regex, file.lower())]
+
+    print(color.BOLD+"Looking for existing README..."+color.END)
+    # README already exists
+    if len(matches) > 0:
+        print(color.BOLD+color.YELLOW+"README file already exists!"+color.END)
+        # Replace README file by creating a new one
+        if input(color.BOLD+"Replace existing README and REMOVE old README (y/n)? "+color.END).lower() == "y":
+            # Remove old README
+            os.remove(matches[0])
+            # Create new README
+            with open("README.md", "w") as file:
+                file.write(f"# {repo_name}")
+                file.close()
+    # No existing README found
+    else:
+        print(color.BOLD+"No README found."+color.END)
+        if input(color.BOLD+"Create README (y/n)? "+color.END) == "y":
+            with open("README.md", "w") as file:
+                    file.write(f"# {repo_name}")
+                    file.close()
+
 def git_init(username, repo_name, https=False):
     """
     Initializes a git repo where this application has been called from.
     """
     print(color.BOLD+color.CYAN+"\n[Setting up git repository]"+color.END)
     
+    # Replace existing README or create a new one
+    add_readme(repo_name)
+
     subprocess.run(["git", "init"])
-    # Create README.md file
-    with open("README.md", "w") as file:
-        file.write(f"# {repo_name}")
-        file.close()
     subprocess.run(["git", "add", "*"])
     subprocess.run(["git", "commit", "-m", "Initial commit"])
     if https:
