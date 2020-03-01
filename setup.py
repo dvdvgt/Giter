@@ -6,7 +6,7 @@ with open('README.md', "r") as file:
 
 setup(
     name='giter',
-    version='1.0.2',
+    version='1.0.0',
     packages=find_packages(),
     author='David Voigt',
     author_email='David.Voigt1998@gmail.com',
