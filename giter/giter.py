@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/bin/env python3
 """
     Command line application to quickly set up a new remote repository, initialize a local git repository and add the remote repo.
 """
@@ -187,22 +187,25 @@ def main():
     parser.add_argument("--doc", action="store_true")
     args = parser.parse_args()
 
-    # Create a new repo on Github.com
-    if args.init == False and args.create:
-        username, repo_name = create_repo()
-    # Create a new repo on github.com, initialize a local git repo and add the remote repo
-    elif args.init and args.create:
-        username, repo_name = create_repo()
-        git_init(username, repo_name, args.https)
-    # Only initialize a local git repo and add a already created remote github repo.
-    elif args.init and args.create == False:
-        user = input(color.BOLD+"Github username ➜ "+color.END)
-        repo_name = input(color.BOLD+"Repository name ➜ "+color.END)
-        git_init(user, repo_name)
-    elif args.doc:
-        help(giter)
-    else:
-        parser.print_help()
+    try:
+        # Create a new repo on Github.com
+        if args.init == False and args.create:
+            username, repo_name = create_repo()
+        # Create a new repo on github.com, initialize a local git repo and add the remote repo
+        elif args.init and args.create:
+            username, repo_name = create_repo()
+            git_init(username, repo_name, args.https)
+        # Only initialize a local git repo and add a already created remote github repo.
+        elif args.init and args.create == False:
+            user = input(color.BOLD+"Github username ➜ "+color.END)
+            repo_name = input(color.BOLD+"Repository name ➜ "+color.END)
+            git_init(user, repo_name)
+        elif args.doc:
+            help(giter)
+        else:
+            parser.print_help()
+    except KeyboardInterrupt:
+        pass
 
 if __name__ == "__main__":
     main()
