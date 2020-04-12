@@ -180,6 +180,15 @@ def git_init(username, repo_name, https=False):
     subprocess.run(["git", "push", "-u", "origin", "master"])
 
 def main():
+    print(r"""
+    ________  ___  _________  _______   ________     
+    |\   ____\|\  \|\___   ___\\  ___ \ |\   __  \    
+    \ \  \___|\ \  \|___ \  \_\ \   __/|\ \  \|\  \   
+     \ \  \  __\ \  \   \ \  \ \ \  \_|/_\ \   _  _\ 	© 2020 Xcal1bur 
+      \ \  \|\  \ \  \   \ \  \ \ \  \_|\ \ \  \\  \| 
+       \ \_______\ \__\   \ \__\ \ \_______\ \__\\ _\ 
+        \|_______|\|__|    \|__|  \|_______|\|__|\|__|
+    """)
     parser = argparse.ArgumentParser(description="Command line application to quickly set up a new remote repository, initialize a local git repository and add the remote repo.")
     parser.add_argument("--init", "-i", action="store_true", help="Initialize a local git repository and add an EXISTING repository as remote.")
     parser.add_argument("--https", action="store_true", help="Use https instead of ssh.")
